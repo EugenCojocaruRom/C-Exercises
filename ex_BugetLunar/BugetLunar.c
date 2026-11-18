@@ -86,3 +86,85 @@ float citire_real() {
 	} while (!ok);
 	return y;
 }
+
+//Modulul 1: citirea zilei si a datelor financiare
+void citire_date() {
+	/* Declaram variabile pentru zi, tip cheltuiala (citire date financiare;
+	afisare venit total, cheltuiala totala, sold final; statistici per tip de cheltuiala; iesire aplicatie) */
+	int zi; //numar de la 1 la 30
+	char tip; //A - alimente, C - casa, R - relaxare
+	//Declaram variabile pentru cele 2 tipuri de sume (numere intregi si reale)
+	int suma_int;
+	float suma_real;
+	//Afisare titlu sectiune
+	printf("\n=== CITIRE DATE FINANCIARE ===\n");
+	//Afisare tipuri de date financiare
+	printf(" V - venit\n A - cheltuiala alimente\n");
+	printf(" C - cheltuiala casa\n R - cheltuiala relaxare\n");
+	//Afisam mesaj pentru introducerea tipului de date
+	printf("Alege un tip de date: ");
+	//Citire tip de date de la tastatura
+	scanf("%c", &tip);
+	golire_buffer(); //Se goleste bufferul pentru a preveni bucla infinita
+
+	//Utilizam instructiunea switch-case pentru a permite utilizatorului sa selecteze tipul de data
+	switch (tip) {
+		//Cazul 'V' / 'v' (pentru a acoperi ambele tipuri de litera introduse) pentru venitul din ziua respectiva
+	case 'V':case 'v':
+		//Citire zi folosind functia ajutatoare
+		zi = citire_zi();
+		//Citirea valorii de tip numar real pentru venitul din ziua respectiva folosind functia ajutatoare
+		suma_real = citire_real();
+		//Se aduna valoarea introdusa la venitul existent in ziua respectiva 
+		venit[zi] += suma_real;
+		//Afisare mesaj cu valoarea venitului introdus si ziua corespunzatoare
+		printf("Ziua %d - venit inregistrat: %.2f lei\n", zi, suma_real);
+		break;
+
+		//Cazul 'A' / 'a' - cheltuiala alimente din ziua respectiva
+	case 'A':case 'a':
+		//Citire zi folosind functia ajutatoare
+		zi = citire_zi();
+		//Citirea valorii de tip numar intreg pentru cheltuiala alimente din ziua respectiva folosind functia ajutatoare
+		suma_int = citire_intreg();
+		//Se aduna valoarea introdusa la cheltuiala alimente existenta in ziua respectiva 
+		alimente[zi] += suma_int;
+		//Afisare mesaj cu valoarea cheltuielii alimente introduse si ziua corespunzatoare
+		printf("Ziua %d - cheltuiala alimente: %d lei\n", zi, suma_int);
+		break;
+
+		//Cazul 'C' / 'c' - cheltuiala casa din ziua respectiva
+	case 'C':case 'c':
+		//Citire zi folosind functia ajutatoare
+		zi = citire_zi();
+		//Citirea valorii de tip numar real pentru cheltuiala casa din ziua respectiva folosind functia ajutatoare
+		suma_real = citire_real();
+		//Se aduna valoarea introdusa la cheltuiala casa existenta in ziua respectiva 
+		casa[zi] += suma_real;
+		//Afisare mesaj cu valoarea cheltuielii casa introduse si ziua corespunzatoare
+		printf("Ziua %d - cheltuiala casa: %.2f lei\n", zi, suma_real);
+		break;
+
+		//Cazul 'R' / 'r' - cheltuiala relaxare din ziua respectiva
+	case 'R':case 'r':
+		//Citire zi folosind functia ajutatoare
+		zi = citire_zi();
+		//Citirea valorii de tip numar real pentru cheltuiala relaxare din ziua respectiva folosind functia ajutatoare
+		suma_real = citire_real();
+		//Se aduna valoarea introdusa la cheltuiala relaxare existenta in ziua respectiva 
+		relaxare[zi] += suma_real;
+		//Afisare mesaj pentru introducere detalii despre relaxare (sir de caractere)
+		printf("Detalii despre relaxare: ");
+		//Citire detalii despre relaxare citite de la tastatura (sir de caractere)
+		scanf("%99[^\n]", detalii_relaxare);
+		golire_buffer(); //Se goleste bufferul pentru cazul in care se introduc mai mult de 99 de caractere
+		//Afisare mesaj cu valoarea cheltuielii relaxare introduse si ziua corespunzatoare
+		printf("Ziua %d - %s - cheltuiala relaxare: %.2f lei\n", zi, detalii_relaxare, suma_real);
+		break;
+
+		//Cazul default - pentru orice alta valoare introdusa care nu corespunde niciunei optiuni valide
+	default:
+		//Afisare mesaj pentru tip invalid
+		printf("Tip date financiare invalid. Introdu V, A, C sau R.\n");
+	}
+}
