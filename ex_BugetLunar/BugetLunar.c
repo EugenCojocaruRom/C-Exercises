@@ -168,3 +168,32 @@ void citire_date() {
 		printf("Tip date financiare invalid. Introdu V, A, C sau R.\n");
 	}
 }
+
+//Modulul 2: Calcularea si afisarea veniturilor totale, cheltuielilor totale si soldului final
+void calcul_total() {
+	//Declaram variabile de tip real (float) pentru venit total, cheltuiala totala si sold final
+	float venit_total = 0;
+	float cheltuiala_totala = 0;
+	float sold_final = 0;
+	//Calculam veniturile si cheltuielile totale pe parcursul lunii
+	for (int i = 0; i <= ZILE; i++) {
+		venit_total += venit[i];
+		cheltuiala_totala += alimente[i] + casa[i] + relaxare[i];
+	}
+	//Calculam soldul final
+	sold_final = venit_total - cheltuiala_totala;
+	//Afisare rezultate
+	printf("\n=== SITUATIE BUGET LUNAR ===\n");
+	printf("Venit total: %.2f lei\n", venit_total);
+	printf("Cheltuiala totala: %.2f lei\n", cheltuiala_totala);
+	//Setare conditii pentru afisarea soldului final in functie de valoarea acestuia (pozitiv, negativ sau zero)
+	if (sold_final > 0) {
+		printf("Sold final: %.2f lei -> profit\n", sold_final);
+	}
+	else if (sold_final < 0) {
+		printf("Sold final: %.2f lei -> pierdere\n", sold_final);
+	}
+	else {
+		printf("Sold final: %.2f lei -> echilibrat\n", sold_final);
+	}
+}
