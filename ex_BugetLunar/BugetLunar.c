@@ -197,3 +197,52 @@ void calcul_total() {
 		printf("Sold final: %.2f lei -> echilibrat\n", sold_final);
 	}
 }
+
+//Modulul 3: Statistici financiare per tip de cheltuiala
+void statistici_tipuri() {
+	//Declaram variabile pentru statistici per tip de cheltuiala
+	int total_alimente = 0;
+	float total_casa = 0;
+	float total_relaxare = 0;
+	//Calculam cheltuielile totale per tip de cheltuiala
+	for (int i = 0; i <= ZILE; i++) {
+		total_alimente += alimente[i];
+		total_casa += casa[i];
+		total_relaxare += relaxare[i];
+	}
+	//Afisare rezultate statistici
+	printf("\n=== STATISTICI CHELTUIELI ===\n");
+	//Declaram variabila de tip char pentru optiunile de vizualizare a statisticilor, initializata cu un caracter gol (spatiu)
+	char optiune_statistici = ' ';
+	/* Rulam bucla do - while pentru a permite utilizatorului sa vizualizeze statisticile pentru diferite tipuri de cheltuieli
+	pana cand alege sa revina la meniul principal (optiunea X) */
+	do {
+		//Afisare alegere optiuni: A - alimente, C - casa, R - relaxare, T - toate, X - revenire la meniul principal
+		printf("Alege o optiune pentru vizualizare statistici (A / C / R / T / X):\n A - alimente   C - casa   R - relaxare\n T - toate   X - revenire la meniul principal\n");
+		//Citim optiunea de la tastatura
+		scanf("%c", &optiune_statistici);
+		golire_buffer(); //Se goleste bufferul in cazul in care se introduc mai multe caractere
+		//Setare reguli de afisare a totalurilor cheltuielilor in functie de alegerea utilizatorului
+		if (optiune_statistici == 'A' || optiune_statistici == 'a') {
+			printf("Cheltuieli totale pentru alimente: %d lei\n\n", total_alimente);
+		}
+		else if (optiune_statistici == 'C' || optiune_statistici == 'c') {
+			printf("Cheltuieli totale pentru casa: %.2f lei\n\n", total_casa);
+		}
+		else if (optiune_statistici == 'R' || optiune_statistici == 'r') {
+			printf("Cheltuieli totale pentru relaxare: %.2f lei\n\n", total_relaxare);
+		}
+		else if (optiune_statistici == 'T' || optiune_statistici == 't') {
+			printf("Cheltuieli totale pentru alimente: %d lei\n", total_alimente);
+			printf("Cheltuieli totale pentru casa: %.2f lei\n", total_casa);
+			printf("Cheltuieli totale pentru relaxare: %.2f lei\n\n", total_relaxare);
+		}
+		else if (optiune_statistici == 'X' || optiune_statistici == 'x') {
+			printf("Revenire la meniul principal.\n");
+		}
+		else {
+			printf("Optiune incorecta. Alege A / C / R / T sau X.\n\n");
+		}
+	} while (optiune_statistici != 'X' && optiune_statistici != 'x');
+}
+
